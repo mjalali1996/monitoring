@@ -1,0 +1,14 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: cadvisor
+    static_configs:
+      - targets: ["cadvisor:8080"]
+
+  # One job per app you want to monitor. Point each target at the app's
+  # *host-published* port (the left side of "HOST:CONTAINER" in its own
+  # docker-compose.yml) — this stack doesn't need to share a network with it.
+  - job_name: hokm-runner
+    static_configs:
+      - targets: ["host.docker.internal:3000"]
